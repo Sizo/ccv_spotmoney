@@ -33,3 +33,7 @@ exposed.
 By default the application is set to run on port 8080.This can be ammended from the **application.yml**.
 
 - Import Postman collection located under `/src/test/ccv.postman_collection.json` to run manual tests
+
+
+##Additional
+- The openApi3 spec can be view through swagger when running the application at `http://localhost:8080/swagger-ui/index.html` and the original Json at `http://localhost:8080/v3/api-docs` (This is also stored on the projects **src/main/resources** as `OpenAPI3.yml`)
