@@ -10,9 +10,7 @@ import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 @EnableFeignClients
 @ImportAutoConfiguration({FeignAutoConfiguration.class})
 public class CCVApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CCVApplication.class, args);
 	}
-
 }

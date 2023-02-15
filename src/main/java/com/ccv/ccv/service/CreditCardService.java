@@ -1,5 +1,6 @@
 package com.ccv.ccv.service;
 
+import com.ccv.ccv.model.BannedCountryException;
 import com.ccv.ccv.model.CreditCardNumber;
 import com.ccv.ccv.model.CreditCardSubmissionException;
 import com.ccv.ccv.model.RecordNotFoundException;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
@@ -27,16 +29,17 @@ public class CreditCardService {
     private Binlist binlist;
 
     @Value("#{'${country.banned}'.split(',')}")
-    private List<String> myList;
+    private List<String> bannedCountries;
 
-    public void submitCreditCardNumber(final CreditCardNumber number){
+    public void submitCreditCardNumber(@NotNull final CreditCardNumber number){
         final var creditCardNumber = number.getCreditCardNumber();
         try {
             log.info("Saving {}.", creditCardNumber);
             var response = binlist.getCreditCardDetails(creditCardNumber);
             var country = response.getCountry().getName();
             log.info(response.toString());
-
+            if(bannedCountries.contains(country))
+                throw new BannedCountryException(creditCardNumber, country);
 
             creditCardRepository.save(number);
             log.info("Saved {}.", creditCardNumber);
