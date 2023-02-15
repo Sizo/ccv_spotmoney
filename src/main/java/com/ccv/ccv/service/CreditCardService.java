@@ -4,8 +4,13 @@ import com.ccv.ccv.model.CreditCardNumber;
 import com.ccv.ccv.model.CreditCardSubmissionException;
 import com.ccv.ccv.model.RecordNotFoundException;
 import com.ccv.ccv.repository.CreditCardRepository;
+import com.ccv.ccv.service.client.Binlist;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +23,21 @@ public class CreditCardService {
 
     private final CreditCardRepository creditCardRepository;
 
+    @Autowired
+    private Binlist binlist;
+
+    @Value("#{'${country.banned}'.split(',')}")
+    private List<String> myList;
+
     public void submitCreditCardNumber(final CreditCardNumber number){
         final var creditCardNumber = number.getCreditCardNumber();
         try {
             log.info("Saving {}.", creditCardNumber);
+            var response = binlist.getCreditCardDetails(creditCardNumber);
+            var country = response.getCountry().getName();
+            log.info(response.toString());
+
+
             creditCardRepository.save(number);
             log.info("Saved {}.", creditCardNumber);
         }catch (DataAccessException ex){
