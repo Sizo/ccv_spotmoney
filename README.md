@@ -14,6 +14,10 @@ countries.
 - Provide an Open Api 3 Specification yml detailing the endpoints
 exposed.
 - The project needs to include Unit Tests
+- 
+###The following Webservice is used to retrieve credit card information:
+- "https://lookup.binlist.net"
+
 
 
 ##How to Install and Run the Project
