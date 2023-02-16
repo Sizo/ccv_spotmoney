@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -18,8 +19,8 @@ public class CreditCardController {
     private final CreditCardService creditCardService;
 
     @PostMapping(value = "submit")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void submitCreditCardNumber(@RequestBody @NotEmpty final CreditCardNumber creditCardNumber) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void submitCreditCardNumber(@RequestBody @NotNull final CreditCardNumber creditCardNumber) {
         creditCardService.submitCreditCardNumber(creditCardNumber);
     }
 
@@ -28,7 +29,7 @@ public class CreditCardController {
         return new ResponseEntity<>(creditCardService.retrieveAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "retrieve")
+    @PostMapping(value = "retrieve")
     public ResponseEntity<CreditCardNumber> retrieve(@RequestBody @NotEmpty CreditCardNumber creditCardNumber){
         return new ResponseEntity<>(creditCardService.retrieve(creditCardNumber), HttpStatus.FOUND);
     }

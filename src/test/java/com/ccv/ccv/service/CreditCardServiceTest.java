@@ -50,11 +50,10 @@ class CreditCardServiceTest {
         when(creditCardRepository.findAll())
                 .thenReturn(mockList);
 
-        CreditCardInfo creditCardInfo = CreditCardInfo.builder()
-                .country(Country.builder().name("South Africa").build())
-                .build();
         when(binlist.getCreditCardDetails(any()))
-                .thenReturn(creditCardInfo);
+                .thenReturn(CreditCardInfo.builder()
+                        .country(Country.builder().name("South Africa").build())
+                        .build());
 
         when(creditCardRepository.findById(EXPECTED_CREDIT_CARD_NUMBER1))
                 .thenReturn(Optional.of(new CreditCardNumber(EXPECTED_CREDIT_CARD_NUMBER1)));
