@@ -24,7 +24,7 @@ public class CreditCardService {
     private final CreditCardRepository creditCardRepository;
 
     @Autowired
-    private Binlist binlist;
+    private final Binlist binlist;
 
     @Value("#{'${country.banned}'.split(',')}")
     private final List<String> bannedCountries;
