@@ -6,6 +6,7 @@ import com.ccv.ccv.model.CreditCardSubmissionException;
 import com.ccv.ccv.model.RecordNotFoundException;
 import com.ccv.ccv.repository.CreditCardRepository;
 import com.ccv.ccv.service.client.Binlist;
+import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class CreditCardService {
     private final CreditCardRepository creditCardRepository;
 
     @Autowired
-    private Binlist binlist;
+    private final Binlist binlist;
 
     @Value("#{'${country.banned}'.split(',')}")
     private final List<String> bannedCountries;
@@ -43,6 +44,10 @@ public class CreditCardService {
             log.info("Saved {}.", creditCardNumber);
         }catch (DataAccessException ex){
             log.error("An error occurred submitting record {}.", creditCardNumber);
+            throw new CreditCardSubmissionException(creditCardNumber);
+        }
+        catch (FeignException exception){
+            log.error("An error occurred retrieving card details {} from 3rd party service.", creditCardNumber);
             throw new CreditCardSubmissionException(creditCardNumber);
         }
     }

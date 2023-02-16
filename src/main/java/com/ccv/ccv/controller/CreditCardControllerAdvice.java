@@ -3,6 +3,7 @@ package com.ccv.ccv.controller;
 import com.ccv.ccv.model.BannedCountryException;
 import com.ccv.ccv.model.CreditCardSubmissionException;
 import com.ccv.ccv.model.RecordNotFoundException;
+import feign.FeignException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,7 +21,7 @@ public class CreditCardControllerAdvice extends ResponseEntityExceptionHandler {
         return recordNotFoundException.printMessage();
     }
 
-    @ExceptionHandler({ CreditCardSubmissionException.class })
+    @ExceptionHandler({ CreditCardSubmissionException.class, FeignException.class })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String submit(@NotNull CreditCardSubmissionException creditCardSubmissionException) {
         return creditCardSubmissionException.printMessage();
