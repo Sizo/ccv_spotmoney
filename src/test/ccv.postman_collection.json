@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "27b8bd15-dc4c-4c4c-96d4-8816480ba194",
+		"name": "ccv",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6457963"
+	},
+	"item": [
+		{
+			"name": "Submit CreditCardNumbers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creditCardNumber\" : 552057701920666\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/credit/submit",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"credit",
+						"submit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve All CreditCardNumbers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/credit/retrieveAll",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"credit",
+						"retrieveAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve CreditCard",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"creditCardNumber\": 1230\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/credit/retrieve",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"credit",
+						"retrieve"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

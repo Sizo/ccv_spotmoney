@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API for CCVApplication",
+    "version": "unknown"
+  },
+  "paths": {
+    "/credit/retrieve": {
+      "get": {
+        "operationId": "retrieve",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreditCardNumber"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreditCardNumber"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/credit/retrieveAll": {
+      "get": {
+        "operationId": "retrieveAll",
+        "responses": {
+          "200": {
+            "description": "Default response",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CreditCardNumber"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/credit/submit": {
+      "post": {
+        "operationId": "submitCreditCardNumber",
+        "requestBody": {
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/CreditCardNumber"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreditCardNumber": {
+        "type": "object",
+        "properties": {
+          "creditCardNumber": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
